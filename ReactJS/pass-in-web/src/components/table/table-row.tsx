@@ -1,0 +1,11 @@
+import type { ComponentProps } from "react";
+ 
+interface TableRowProps extends ComponentProps<'tr'> {
+  text?: string;
+}
+
+export function TableRow(props: TableRowProps) {
+  return (
+    <tr className="className='border-b border-white/10 hover:bg-white/10'" {...props}/>
+  )
+}
