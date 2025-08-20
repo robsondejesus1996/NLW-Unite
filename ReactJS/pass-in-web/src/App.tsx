@@ -1,5 +1,6 @@
 import { AttendeeList } from './components/attendee-list'
 import { Header } from './components/header'
+import applicationVersion  from '../package.json'
 export function App() {
   return (
 
@@ -8,6 +9,8 @@ export function App() {
 
       <Header/>
       <AttendeeList />
+
+      <h1 className="flex justify-center">{applicationVersion.version}</h1>
 
     </div>
   )
