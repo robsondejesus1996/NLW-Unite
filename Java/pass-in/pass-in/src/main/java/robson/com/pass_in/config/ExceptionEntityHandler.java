@@ -16,32 +16,28 @@ import robson.com.pass_in.dto.general.ErrorResponseDTO;
 public class ExceptionEntityHandler {
 
     @ExceptionHandler(EventNotFoundException.class)
-    public ResponseEntity handleEventNotFound(EventNotFoundException exception) {
+    public ResponseEntity handleEventNotFound(EventNotFoundException exception){
         return ResponseEntity.notFound().build();
     }
 
     @ExceptionHandler(EvenFullException.class)
-    public ResponseEntity<ErrorResponseDTO> handleEventFull(EvenFullException exception) {
+    public ResponseEntity<ErrorResponseDTO> handleEventFull(EvenFullException exception){
         return ResponseEntity.badRequest().body(new ErrorResponseDTO(exception.getMessage()));
     }
 
     @ExceptionHandler(AttendeeNotFoundException.class)
-    public ResponseEntity handleAttendeeNotFound(AttendeeNotFoundException exception) {
+    public ResponseEntity handleAttendeeNotFound(AttendeeNotFoundException exception){
         return ResponseEntity.notFound().build();
     }
 
-
     @ExceptionHandler(AttendeeAlreadyExistException.class)
-    public ResponseEntity handleAttendeeAlreadyExists(AttendeeAlreadyExistException exception) {
+    public ResponseEntity handleAttendeeAlreadyExist(AttendeeAlreadyExistException exception){
         return ResponseEntity.status(HttpStatus.CONFLICT).build();
     }
-
 
     @ExceptionHandler(CheckInAlreadyExistsException.class)
-    public ResponseEntity handleCheckInAlreadyExists(CheckInAlreadyExistsException exception) {
+    public ResponseEntity handleCheckInAlreadyExist(CheckInAlreadyExistsException exception) {
         return ResponseEntity.status(HttpStatus.CONFLICT).build();
     }
-
-
 
 }
