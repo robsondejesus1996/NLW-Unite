@@ -8,6 +8,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 import robson.com.pass_in.dto.event.EventIdDTO;
 import robson.com.pass_in.dto.event.EventRequestDTO;
 import robson.com.pass_in.dto.event.EventResponseDTO;
+import robson.com.pass_in.dto.event.attendee.AttendeeIdDTO;
+import robson.com.pass_in.dto.event.attendee.AttendeeRequestDTO;
 import robson.com.pass_in.dto.event.attendee.AttendeesListResponseDTO;
 import robson.com.pass_in.services.AttendeeService;
 import robson.com.pass_in.services.EventServices;
@@ -34,6 +36,15 @@ public class EventController {
         var uri = uriComponentsBuilder.path("/events/{id}").buildAndExpand(eventIdDTO.eventId()).toUri();
 
         return ResponseEntity.created(uri).body(eventIdDTO);
+    }
+
+    @PostMapping("/{eventId}/attendees")
+    public ResponseEntity<AttendeeIdDTO> registerParticipant(@PathVariable String eventId, @RequestBody AttendeeRequestDTO body, UriComponentsBuilder uriComponentsBuilder) {
+        AttendeeIdDTO attendeeIdDTO = this.eventServices.registerAttendeeOnEvent(eventId, body);
+
+        var uri = uriComponentsBuilder.path("/attendees/{attendId}/badge").buildAndExpand(attendeeIdDTO.attendeeId()).toUri();
+
+        return ResponseEntity.created(uri).body(attendeeIdDTO);
     }
 
     @GetMapping("/attendees/{id}")

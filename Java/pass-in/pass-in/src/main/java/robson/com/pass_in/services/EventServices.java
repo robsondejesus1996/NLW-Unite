@@ -5,13 +5,17 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import robson.com.pass_in.domain.attendee.Attendee;
 import robson.com.pass_in.domain.events.Event;
+import robson.com.pass_in.domain.events.exceptions.EvenFullException;
 import robson.com.pass_in.domain.events.exceptions.EventNotFoundException;
 import robson.com.pass_in.domain.repositories.EventRepository;
 import robson.com.pass_in.dto.event.EventIdDTO;
 import robson.com.pass_in.dto.event.EventRequestDTO;
 import robson.com.pass_in.dto.event.EventResponseDTO;
+import robson.com.pass_in.dto.event.attendee.AttendeeIdDTO;
+import robson.com.pass_in.dto.event.attendee.AttendeeRequestDTO;
 
 import java.text.Normalizer;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -44,6 +48,32 @@ public class EventServices {
 
         return new EventIdDTO(newEvent.getId());
 
+    }
+
+    public AttendeeIdDTO registerAttendeeOnEvent(String eventId, AttendeeRequestDTO attendeeRequestDTO){
+        this.attendeeService.verifyAttendeeSubscription(attendeeRequestDTO.email(), eventId);
+
+        String cleanId = eventId.trim();
+        Event event = this.eventRepository.findById(cleanId).orElseThrow(() -> new EventNotFoundException("Event not found with id: " + cleanId));
+        List<Attendee> attendeeList = this.attendeeService.getAllAttendeesFromEvent(cleanId);
+
+
+        if(event.getMaximumAttendees() <= attendeeList.size()) throw new EvenFullException("Event is full");
+
+        Attendee newAttendee = new Attendee();
+
+        newAttendee.setName(attendeeRequestDTO.name());
+        newAttendee.setEmail(attendeeRequestDTO.email());
+        newAttendee.setEvent(event);
+        newAttendee.setCreatedAt(LocalDateTime.now());
+        this.attendeeService.registerAttendee(newAttendee);
+        return new AttendeeIdDTO(newAttendee.getId());
+
+    }
+
+    private Event getEventById(String eventId){
+        String cleanId = eventId.trim();
+        return this.eventRepository.findById(cleanId).orElseThrow(() -> new EventNotFoundException("Event not found with id: " + cleanId));
     }
 
     private String createSlug(String text){

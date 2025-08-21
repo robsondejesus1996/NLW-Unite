@@ -1,18 +1,26 @@
 package robson.com.pass_in.controllers;
 
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
+import robson.com.pass_in.dto.event.attendee.AttendeeBadgeResponseDTO;
+import robson.com.pass_in.services.AttendeeService;
 
 @RestController
 @RequestMapping("/attendees")
+@RequiredArgsConstructor
 public class AttendeeController {
 
+    private final AttendeeService attendeeService;
 
-    @GetMapping
-    public ResponseEntity<String> getTeste() {
-        return ResponseEntity.ok("Hello World API attendees");
+    @GetMapping("/{attendeeId}/badge")
+    public ResponseEntity<AttendeeBadgeResponseDTO> getAttendeeBadge(@PathVariable String attendeeId, UriComponentsBuilder uriComponentsBuilder) {
+        AttendeeBadgeResponseDTO response =  this.attendeeService.getAttendeeBadge(attendeeId, uriComponentsBuilder);
+        return ResponseEntity.ok(response);
     }
 }
