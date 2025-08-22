@@ -8,3 +8,9 @@
 
 
 // npx tsx watch src/server.ts
+//npm i prisma -D
+//npx prisma init --datasource-provider SQLite
+//npx prisma migrate dev
+
+
+//npx prisma studio
