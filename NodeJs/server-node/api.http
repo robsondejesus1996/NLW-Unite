@@ -2,16 +2,19 @@ POST http://localhost:3333/events
 Content-Type: application/json
 
 {
-  "title": "Novo Evento", 
+  "title": "Novo Evento 2", 
   "details": "Detalhes do evento", 
   "maximunAttendees": 1
 }
 
 ###
-POST http://localhost:3333/events/aaddbacd-6087-43f6-b82b-d32ca2908b84/attendees
+POST http://localhost:3333/events/246882e5-db5d-4eab-979a-9647562f5b8a/attendees
 Content-Type: application/json
 
 {
   "name": "Maria tereza de Jesus", 
   "email": "maria@gmail.com"
 }
+
+###
+GET http://localhost:3333/events/aaddbacd-6087-43f6-b82b-d32ca2908b84
