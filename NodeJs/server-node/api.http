@@ -2,7 +2,10 @@ POST http://localhost:3333/events
 Content-Type: application/json
 
 {
-  "title": "Hello World!", 
-  "details": "Um evento para quem é apaixonado por programação", 
+  "title": "Com o slug", 
+  "details": "com slug", 
   "maximunAttendees": 100
 }
+
+###
+POST http://localhost:3333/events/attendees
