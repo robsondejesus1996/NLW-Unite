@@ -8,4 +8,10 @@ Content-Type: application/json
 }
 
 ###
-POST http://localhost:3333/events/attendees
+POST http://localhost:3333/events/fdc2ce66-731f-41fd-821c-8fdfc4f1caf5/attendees
+Content-Type: application/json
+
+{
+  "name": "Robson de Jesus", 
+  "email": "robson@gmail.com"
+}
