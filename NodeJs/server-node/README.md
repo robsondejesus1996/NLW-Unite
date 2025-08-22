@@ -80,3 +80,10 @@ CREATE UNIQUE INDEX "attendees_event_id_email_key" ON "attendees"("event_id", "e
 -- CreateIndex
 CREATE UNIQUE INDEX "check_ins_attendeeId_key" ON "check_ins"("attendeeId");
 ```
+
+
+
+-- Run project and Documentation
+npx run dev 
+http://localhost:3333/docs/
+```
