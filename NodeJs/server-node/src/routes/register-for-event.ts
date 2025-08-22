@@ -2,12 +2,15 @@ import { FastifyInstance } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
 import {z} from "zod";
 import { prisma } from "../lib/prisma";
+import { BadRequest } from "./_error/bad-request";
 
 export async function registerForEvent(app: FastifyInstance){
   app
    .withTypeProvider<ZodTypeProvider>()
    .post('/events/:eventId/attendees',{
     schema:{
+      summary: 'Register an attendees',
+      tags: ['attendees'], 
       body: z.object({
         name: z.string().min(4), 
         email: z.string().email(),
@@ -36,7 +39,7 @@ export async function registerForEvent(app: FastifyInstance){
       })
 
       if(attendeeFromEmail !== null){
-        throw new Error('This Email is already registered for this event.')
+        throw new BadRequest('This Email is already registered for this event.')
       }
 
 

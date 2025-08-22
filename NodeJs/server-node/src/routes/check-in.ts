@@ -2,12 +2,15 @@ import { FastifyInstance } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
 import {z} from "zod";
 import { prisma } from "../lib/prisma";
+import { BadRequest } from "./_error/bad-request";
 
 export function checkIn(app: FastifyInstance){
   app
   .withTypeProvider<ZodTypeProvider>()
   .get('/attendees/:attendeeId/check-in', {
     schema: {
+      summary: 'check-ins',
+      tags: ['check-in'], 
       params: z.object({
         attendeeId: z.coerce.number().int()
       }), 
@@ -26,7 +29,7 @@ export function checkIn(app: FastifyInstance){
     })
 
     if(attendeeCheckIn !==null){
-      throw new Error("Attendee already checked in")
+      throw new BadRequest("Attendee already checked in")
     }
 
     await prisma.checkIn.create({
