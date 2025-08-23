@@ -4,16 +4,16 @@ Content-Type: application/json
 {
   "title": "Evento de programação", 
   "details": "Detalhes do evento", 
-  "maximunAttendees": 1
+  "maximunAttendees": 100
 }
 
 ###
-POST http://localhost:3333/events/246882e5-db5d-4eab-979a-9647562f5b8a/attendees
+POST http://localhost:3333/events/66dbd9bd-42c9-420b-ba96-723f3cd67ba7/attendees
 Content-Type: application/json
 
 {
-  "name": "Maria tereza de Jesus", 
-  "email": "maria@gmail.com"
+  "name": "Adao de souza", 
+  "email": "adann@gmail.com"
 }
 
 ###
@@ -24,7 +24,7 @@ GET http://localhost:3333/events/aaddbacd-6087-43f6-b82b-d32ca2908b84
 GET http://localhost:3333/attendees/3/badge
 
 ###
-GET http://localhost:3333/attendees/1/check-in
+GET http://localhost:3333/attendees/6/check-in
 
 
 ###
