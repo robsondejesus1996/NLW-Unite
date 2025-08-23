@@ -31,7 +31,7 @@ app.register(fastifySwagger, {
     info: {
       title: 'pass.in',
       description: 'Especificações da API para o back-end da aplicação',
-      version: '1.0.0',
+      version: `${versionAPI.version}`
     },
   },
   transform: jsonSchemaTransform,
