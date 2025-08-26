@@ -14,7 +14,6 @@ import { userBadgeStore } from "@/store/badge-store"
 
 export default function Ticket() {
 
-  const [image, setImage] = useState("");
   const [expandQRCode, setExpandQRCode] = useState<boolean>(false);
 
   const badgeStore = userBadgeStore();
@@ -29,7 +28,7 @@ export default function Ticket() {
       })
 
       if (result.assets) {
-        setImage(result.assets[0].uri)
+        badgeStore.updateAvatar(result.assets[0].uri)
       }
     } catch (error) {
       console.log(error);
@@ -48,7 +47,6 @@ export default function Ticket() {
 
       <ScrollView className="-mt-28" contentContainerClassName="px-8" showsVerticalScrollIndicator={false}>
         <Credential
-          image={image}
           data = {badgeStore.data}
           onChangeAvatar={handleSelectImage}
           onExpandQRCode={() => setExpandQRCode(true)}
