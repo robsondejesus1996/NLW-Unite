@@ -46,10 +46,10 @@ export default function Ticket() {
       <StatusBar barStyle="light-content" />
       <Header title="" />
 
-      {/* Colocar o classeNamen nesse ScrollView -- className="-mt-28 -z-10" */}
       <ScrollView className="-mt-28" contentContainerClassName="px-8" showsVerticalScrollIndicator={false}>
         <Credential
           image={image}
+          data = {badgeStore.data}
           onChangeAvatar={handleSelectImage}
           onExpandQRCode={() => setExpandQRCode(true)}
         />
@@ -66,7 +66,7 @@ export default function Ticket() {
         </Text>
 
         <Text className="text-white font-regular text-base mt-1 mb-6">
-          Montre ao mundo que voce vai participar do Unite Summit!
+          Monstre ao mundo que voce vai participar do {badgeStore.data.eventTitle}
         </Text>
 
         <Button title="Compartilhar" />

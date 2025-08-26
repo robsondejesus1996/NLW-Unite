@@ -10,12 +10,15 @@ import { useState } from 'react';
 
 import axios from 'axios';
 import { api } from "@/server/api";
+import { userBadgeStore } from "@/store/badge-store"
 
 export default function Register() {
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  const badgeStore = userBadgeStore();
 
   const EVENT_ID = "f014cb5e-ba08-4c83-bed2-5b3ca62480c1";
 
@@ -37,7 +40,10 @@ export default function Register() {
 
       // Verifies if the response is successful
       if(registerResponse.data.attendeeId){
-        // Shows an alert with a success message and navigates to the ticket screen
+        const badgeResponse = await api.get(`/attendees/${registerResponse.data.attendeeId}/badge`)
+
+        badgeStore.save(badgeResponse.data.badge);
+
         Alert.alert("Inscrição", "Inscrição realizada com sucesso", [
           {text: "OK", onPress: () => router.push("/ticket") },
         ]);
